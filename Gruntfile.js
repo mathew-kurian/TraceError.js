@@ -5,6 +5,7 @@ module.exports = grunt => {
     babel: {
       dist: {
         files: {
+          'dist/Exception.js': 'src/Exception.js',
           'dist/TraceError.js': 'src/TraceError.js'
         }
       }
