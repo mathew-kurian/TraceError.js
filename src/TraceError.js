@@ -1,6 +1,6 @@
 import Exception from './Exception';
 
-export default class TraceError extends Exception {
+class TraceError extends Exception {
   static indent = '    ';
   static globalStackProperty = 'stack';
   static Exception = Exception;
@@ -84,3 +84,5 @@ export default class TraceError extends Exception {
     this.defineHiddenProperty('causes', causes);
   }
 }
+
+module.exports = TraceError;

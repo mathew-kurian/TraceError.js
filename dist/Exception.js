@@ -1,53 +1,81 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+require("core-js/modules/es.symbol");
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+require("core-js/modules/es.symbol.description");
 
-var _weakmap = require('weakmap');
+require("core-js/modules/es.symbol.iterator");
 
-var _weakmap2 = _interopRequireDefault(_weakmap);
+require("core-js/modules/es.array.iterator");
+
+require("core-js/modules/es.function.name");
+
+require("core-js/modules/es.object.get-own-property-descriptor");
+
+require("core-js/modules/es.object.get-own-property-names");
+
+require("core-js/modules/es.object.get-prototype-of");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.reflect.construct");
+
+require("core-js/modules/es.regexp.to-string");
+
+require("core-js/modules/es.string.iterator");
+
+require("core-js/modules/web.dom-collections.iterator");
+
+var _weakmap = _interopRequireDefault(require("weakmap"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var privates = new _weakmap2.default();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var Exception = function () {
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var privates = new _weakmap.default();
+
+var Exception =
+/*#__PURE__*/
+function () {
   _createClass(Exception, [{
-    key: 'get',
-
-
+    key: "get",
     // TEMP for extending the base class via Exception.prototype - unsafe procedure
     // marked for deprecation
     value: function get(key) {
       return this.getHiddenProperty('error')[key];
-    }
-
-    // marked for deprecation
+    } // marked for deprecation
 
   }, {
-    key: 'set',
+    key: "set",
     value: function set(key, value) {
       this.getHiddenProperty('error')[key] = value;
     }
   }, {
-    key: 'defineHiddenProperty',
+    key: "defineHiddenProperty",
     value: function defineHiddenProperty(key, value) {
       var pr = privates.has(this) ? privates.get(this) : {};
       pr[key] = value;
       privates.set(this, pr);
     }
   }, {
-    key: 'getHiddenProperty',
+    key: "getHiddenProperty",
     value: function getHiddenProperty(key, def) {
       return privates.has(this) ? privates.get(this)[key] : def;
     }
   }, {
-    key: 'stack',
+    key: "stack",
     get: function get() {
       return this.getHiddenProperty('error').stack;
     },
@@ -55,7 +83,7 @@ var Exception = function () {
       this.getHiddenProperty('error').stack = stack;
     }
   }, {
-    key: 'name',
+    key: "name",
     get: function get() {
       return this.getHiddenProperty('error').name;
     },
@@ -63,7 +91,7 @@ var Exception = function () {
       this.getHiddenProperty('error').name = name;
     }
   }, {
-    key: 'message',
+    key: "message",
     get: function get() {
       return this.getHiddenProperty('error').message;
     },
@@ -75,20 +103,25 @@ var Exception = function () {
   function Exception() {
     _classCallCheck(this, Exception);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    var error = new (Function.prototype.bind.apply(Error, [null].concat(args)))();
+    var error = _construct(Error, args);
+
     error.name = this.constructor.name;
     this.defineHiddenProperty('error', error);
   }
 
   _createClass(Exception, [{
-    key: 'toJSON',
+    key: "toJSON",
     value: function toJSON() {
       if (!Exception.searchPrototype) {
-        return { stack: this.stack, message: this.message, name: this.name };
+        return {
+          stack: this.stack,
+          message: this.message,
+          name: this.name
+        };
       }
 
       var json = {};
@@ -99,61 +132,42 @@ var Exception = function () {
         chain.push(currProto);
       }
 
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
+      for (var _i = 0, _chain = chain; _i < _chain.length; _i++) {
+        var proto = _chain[_i];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-      try {
-        for (var _iterator = chain[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var proto = _step.value;
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
-
-          try {
-            for (var _iterator2 = Object.getOwnPropertyNames(proto)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              var key = _step2.value;
-
-              if (json.hasOwnProperty(key)) continue;
-              var desc = Object.getOwnPropertyDescriptor(proto, key);
-              if (desc) {
-                var value = desc.get ? desc.get.call(this) : desc.value;
-
-                if (proto.isPrototypeOf(value)) {
-                  continue;
-                }
-
-                if (typeof value !== 'function') {
-                  json[key] = value;
-                }
-              }
-            }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
+          for (var _iterator = Object.getOwnPropertyNames(proto)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var key = _step.value;
+            if (json.hasOwnProperty(key)) continue;
+            var desc = Object.getOwnPropertyDescriptor(proto, key);
+
+            if (desc) {
+              var value = desc.get ? desc.get.call(this) : desc.value;
+
+              if (proto.isPrototypeOf(value)) {
+                continue;
+              }
+
+              if (typeof value !== 'function') {
+                json[key] = value;
+              }
+            }
           }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
         } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
       }
@@ -165,8 +179,7 @@ var Exception = function () {
   return Exception;
 }();
 
-Exception.searchPrototype = false;
-exports.default = Exception;
-
+_defineProperty(Exception, "searchPrototype", false);
 
 Object.setPrototypeOf(Exception.prototype, Error.prototype);
+module.exports = Exception;

@@ -2,7 +2,7 @@ import WeakMap from 'weakmap';
 
 const privates = new WeakMap();
 
-export default class Exception {
+class Exception {
   static searchPrototype = false;
 
   get stack() {
@@ -92,3 +92,5 @@ export default class Exception {
 }
 
 Object.setPrototypeOf(Exception.prototype, Error.prototype);
+
+module.exports = Exception;
