@@ -1,6 +1,6 @@
 {
   "name": "trace-error",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Chained errors for JavaScript",
   "main": "dist/TraceError.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "throwable"
   ],
   "author": "Mathew Kurian",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bluejamesbond/TraceError.js/issues"
   },

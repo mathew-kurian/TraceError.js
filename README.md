@@ -10,15 +10,33 @@ import TraceError from 'trace-error';
 
 global.TraceError = TraceError; // expose globally (optional)
 
-throw new TraceError('Could not set status', srcError, ...otherErrors);
+(async () => {
+  try {
+    await fetch('google.com');
+  } catch(e) {
+    console.error(new TraceError('Failed to fetch content', e));
+  }
+})();
+```
+
+### Output 
+```bash
+TraceError: Failed to fetch content
+    at _construct (.../TraceError.js/dist/Exception.js:35:393)
+    at TraceError.Exception (.../TraceError.js/dist/Exception.js:110:17)
+    at new TraceError (.../TraceError.js/dist/TraceError.js:186:74)
+    at .../TraceError.js/tests/throw-test.js:159:19
+    at Object.<anonymous> (.../TraceError.js/tests/throw-test.js:161:3)
+    ReferenceError: fetch is not defined
+        at .../TraceError.js/tests/throw-test.js:157:5
+        at Object.<anonymous> (.../TraceError.js/tests/throw-test.js:161:3)
+        at Module._compile (internal/modules/cjs/loader.js:689:30)
+        at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
+        at Module.load (internal/modules/cjs/loader.js:599:32)
 ```
 
 #### Compatibility
 Node 0.11 -> 5.X; not tested on browsers
-
-## Output
-  
-![](https://www.dropbox.com/s/gbfoh4sr9p24hsg/Screenshot%202016-03-01%2022.26.27.png?dl=1)    
 
 ## Functions
 
