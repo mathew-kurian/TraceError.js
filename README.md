@@ -1,5 +1,5 @@
 # TraceError
-[![Build Status](https://travis-ci.org/bluejamesbond/TraceError.js.svg?branch=master)](https://travis-ci.org/bluejamesbond/TraceError.js)
+[![Build Status](https://travis-ci.org/mathew-kurian/TraceError.js.svg?branch=master)](https://travis-ci.org/bluejamesbond/TraceError.js)
 
 ```bash
 npm install trace-error --save
@@ -36,7 +36,7 @@ TraceError: Failed to fetch content
 ```
 
 #### Compatibility
-Node 0.11 -> 5.X; not tested on browsers
+Node >= 4.0; not tested on browsers
 
 ## Functions
 

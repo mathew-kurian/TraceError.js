@@ -1,6 +1,6 @@
 {
   "name": "trace-error",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "description": "Chained errors for JavaScript",
   "main": "dist/TraceError.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "@babel/polyfill": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "mocha": "^6.1.2"
+    "mocha": "^4.0.0"
   },
   "dependencies": {
     "core-js": "3",
