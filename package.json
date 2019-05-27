@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Chained errors for JavaScript",
   "main": "dist/TraceError.js",
+  "typings": "src/TraceError.d.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha ./tests/*-test.js",
     "build": "npx babel src --out-dir dist"
