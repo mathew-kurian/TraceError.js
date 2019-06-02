@@ -1,5 +1,12 @@
 declare module 'trace-error' {
 
+    // ECMAScript Error
+    interface ECMAError {
+        name: string;
+        message: string;
+        stack?: string;
+    }
+
     /**
      * Serialized form of {@link Exception} instances.
      */
@@ -31,7 +38,7 @@ declare module 'trace-error' {
     /**
      * Extended {@link Error} class that holds a few extra properties.
      */
-    class Exception extends Error {
+    class Exception extends Error implements ECMAError {
         public static searchPrototype: boolean;
 
         public name: string;
@@ -78,6 +85,16 @@ declare module 'trace-error' {
          * Get a list of all the messages
          */
         public messages(): string[];
+
+        /**
+         * Custom detail message. Empty string if not set explicitly.
+         */
+        public message: string;
+
+        /**
+         * Class name of the serialized instance (e.g. "MyCustomError")
+         */
+        public name: string;
 
         /**
          * Property on error objects that returns the stack as a string. 'stack' by default.
