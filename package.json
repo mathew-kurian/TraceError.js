@@ -1,6 +1,6 @@
 {
   "name": "trace-error",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Chained errors for JavaScript",
   "main": "dist/TraceError.js",
   "typings": "src/TraceError.d.js",
